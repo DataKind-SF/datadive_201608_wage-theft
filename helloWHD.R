@@ -8,8 +8,8 @@ library(ggplot2)
 # Read the data
 ####################
 
-whd_dictionary <- read.csv("~/datadive_201608_wage-theft/data/national/whd_data_dictionary.csv", stringsAsFactors = F)
-whd <- as.data.frame(fread("~/datadive_201608_wage-theft/data/national/whd_whisard.csv"))
+whd_dictionary <- read.csv("~/datadive_201608_wage-theft/data/whd_data_dictionary.csv", stringsAsFactors = F)
+whd <- as.data.frame(fread("~/datadive_201608_wage-theft/data/whd_whisard.csv"))
 
 # The fread warning tells us that one of the entries in column "naics_code" is not like the others.
 weird_col <- colnames(whd)[8]
