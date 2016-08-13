@@ -13,6 +13,10 @@ judgements = pd.read_csv(datadir + '/' + judgements_files)
 data_dic = pd.read_csv(datadir + '/' + data_dic_file)
 df_whiz = pd.read_csv(datadir + '/' + whisard)
 
+# processed data
+df_whiz_p = pd.read_csv('data/processedWhdData/whd_whisard.joinedCounty.csv')
+df_whiz_h = pd.read_csv('data/processedWhdData/whd_whisard.naicHumanReadableLevels.csv')
+
 cols_use = ['case_id',
             'trade_nm',
             'legal_name',
@@ -35,6 +39,11 @@ cols_use = ['case_id',
             'findings_start_date',
             'findings_end_date']
 
+
+fig, ax = plt.subplots(figsize=(6,8))
+df_whiz_h.groupby('naic_description_lvl2').size().plot(kind='bar', ax=ax)
+# fig.tight_layout()
+fig.show()
 
 df_whiz['findings_start_date_datetime'] = df_whiz['findings_start_date'].replace({'-0': '-'}, regex=True)
 df_whiz['findings_start_date_datetime'] = pd.to_datetime(df_whiz[df_whiz['findings_start_date_datetime']>'2007']['findings_start_date_datetime'])
