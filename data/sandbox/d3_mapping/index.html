@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<head>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,179 +14,177 @@
     <link rel="import" href="bower_components/paper-button/paper-button.html">
     <link rel="import" href="bower_components/paper-header-panel/paper-header-panel.html">
     <link rel="import" href="bower_components/paper-toolbar/paper-toolbar.html">
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
   </head>
 
+  <style>
+    body {
+      font-family: "Raleway", "Helvetica Neue", helvetica;
+    }
+    #wrapper {
+      width: 960px;
+      margin: 0 auto;
+    }
 
-<style>
-  .counties {
-    fill: none;
-  }
+    #page-title {
+      font-weight: normal;
+      font-size: 48px;
+      text-align: center;
+    }
 
-  .states {
-    fill: none;
-    stroke: #fff;
-    stroke-linejoin: round;
-  }
+    .counties {
+      fill: none;
+    }
+    .counties path {
+      stroke: #fff;
+      stroke-width: .25;
+      stroke-linejoin: round;
+    }
+    .counties path:hover {
+      fill: #000;
+    }
 
-  .q0-9 { fill:rgb(255,213,213); }
-  .q1-9 { fill:rgb(255,170,170); }
-  .q2-9 { fill:rgb(255,128,128); }
-  .q3-9 { fill:rgb(255,85,85); }
-  .q4-9 { fill:rgb(255,42,42); }
-  .q5-9 { fill:rgb(255,0,0); }
-  .q6-9 { fill:rgb(212,0,0); }
-  .q7-9 { fill:rgb(170,0,0);}
-  .q8-9 { fill:rgb(128,0,0); }
+    .states {
+      fill: none;
+      stroke: #fff;
+      stroke-width: 1;
+      stroke-linejoin: round;
+    }
 
-  button {
-    padding: 10px 10px 10px 10px;
-    background-color: white;
-    color: #636363;
-    box-shadow: 0 1.5px 0 #e2e2e2;
-    border-radius: 3px;
-    -moz-border-radius: 3px;
-    border: 1.5px solid #c2c2c2;
-    font-family: 'Arial';
-    text-transform: uppercase;
-    font-weight: bold;
-    font-size: 12px;
-    text-align: center;
-    cursor: pointer;
-  }
+    #reset {
+      position: relative;
+      left: 8px;
+      top: -60px;
+      background-color: white;
+    }
 
-</style>
+    .q0-9 { fill:rgb(255,213,213); }
+    .q1-9 { fill:rgb(255,170,170); }
+    .q2-9 { fill:rgb(255,128,128); }
+    .q3-9 { fill:rgb(255,85,85); }
+    .q4-9 { fill:rgb(255,42,42); }
+    .q5-9 { fill:rgb(255,0,0); }
+    .q6-9 { fill:rgb(212,0,0); }
+    .q7-9 { fill:rgb(170,0,0);}
+    .q8-9 { fill:rgb(128,0,0); }
 
+    button {
+      padding: 10px 10px 10px 10px;
+      background-color: white;
+      color: #636363;
+      box-shadow: 0 1.5px 0 #e2e2e2;
+      border-radius: 3px;
+      -moz-border-radius: 3px;
+      border: 1.5px solid #c2c2c2;
+      font-family: 'Arial';
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 12px;
+      text-align: center;
+      cursor: pointer;
+    }
+  
+  </style>
+</head>
 <body>
-    <div class="col-md-3">
-      <paper-button raised id="reset">Reset Map</paper-button>
-    </div>
-    <div class="col-md-12">
-      <svg width="960" height="600"></svg>
-    </div>
+  <div id="wrapper">
+    <h1 id="page-title">Wage Theft in the United States</h1>
+    <svg id="map" width="960" height="600"></svg>
+    <paper-button raised id="reset">Reset Map</paper-button>
+  </div>
+  <script>
+    var $reset = $('paper-button[id=reset]').hide()
+    var centered;
+
+    var svg = d3.select("svg"),
+        width = +svg.attr("width"),
+        height = +svg.attr("height");
+
+    var rateById = d3.map();
+
+    var quantize = d3.scaleQuantize()
+        .domain([0, 1000000])
+        .range(d3.range(9).map(function(i) { return "q" + i + "-9"; }));
+
+    var projection = d3.geoAlbersUsa()
+        .scale(1280)
+        .translate([width / 2, height / 2]);
+
+    var path = d3.geoPath()
+        .projection(projection);
+
+    var g = svg.append("g");
+
+    d3.queue()
+        .defer(d3.json, "us.json")
+        .defer(d3.csv, "fips_backwages.csv", function(d) { rateById.set(d.id, +d.amount); })
+        .await(ready);
+
+    function ready(error, us) {
+      if (error) throw error;
+
+      g.append("g")
+        .attr("class", "counties")
+        .selectAll("path")
+          .data(topojson.feature(us, us.objects.counties).features)
+        .enter().append("path")
+          .attr("class", function(d) {
+            return quantize(rateById.get(d.id));
+          })
+          .attr("d", path)
+          .on("click", clicked);
+
+      g.append("path")
+          .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
+          .attr("class", "states")
+          .attr("d", path)
+          .selectAll("path")
+    }
+
+    function clicked(d) {
+      var x, y, k;
+
+      if (d && centered !== d) {
+        var centroid = path.centroid(d);
+        x = centroid[0];
+        y = centroid[1];
+        k = 4;
+        centered = d;
+        $reset.show();
+
+      } else {
+        x = width / 2;
+        y = height / 2;
+        k = 1;
+        centered = null;
+        $reset.hide();
+
+      }
+
+      g.selectAll("path")
+      .classed("active", centered && function(d) { return d === centered; });
+
+      g.transition()
+      .duration(750)
+      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
+      .style("stroke-width", 1.5 / k + "px");
+
+    }
+
+    $reset.on('click', function (e) {
+        x = width / 2;
+        y = height / 2;
+        k = 1;
+        centered = null;
+
+      g.selectAll("path")
+      .classed("active", centered && function(d) { return d === centered; });
+
+      g.transition()
+      .duration(750)
+      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
+      .style("stroke-width", 1.5 / k + "px");
+
+      $reset.hide();
+    });
+  </script>
 </body>
-
-<script>
-
-var $reset = $('paper-button[id=reset]').hide()
-var centered;
-
-                         
-var svg = d3.select("svg"),
-    width = +svg.attr("width"),
-    height = +svg.attr("height");
-
-var rateById = d3.map();
-
-var quantize = d3.scaleQuantize()
-    .domain([0, 1000000])
-    .range(d3.range(9).map(function(i) { return "q" + i + "-9"; }));
-
-var projection = d3.geoAlbersUsa()
-    .scale(1280)
-    .translate([width / 2, height / 2]);
-
-var path = d3.geoPath()
-    .projection(projection);
-
-var g = svg.append("g");
-
-d3.queue()
-    .defer(d3.json, "us.json")
-    .defer(d3.csv, "fips_backwages.csv", function(d) { rateById.set(d.id, +d.amount); })
-    .await(ready);
-
-function ready(error, us) {
-  if (error) throw error;
-
-  g.append("g")
-    .attr("class", "counties")
-    .selectAll("path")
-      .data(topojson.feature(us, us.objects.counties).features)
-    .enter().append("path")
-      .attr("class", function(d) {
-        return quantize(rateById.get(d.id));
-      })
-      .attr("d", path)
-      .on('mouseover', function (d) {
-          d3.select(this)
-          .style('stroke', '#fff')
-          .style('stroke-width', '2.5px');
-        })
-      .on('mouseout', function (d) {
-          d3.select(this)
-          .style('stroke', 'none');
-        })
-
-      .on("click", clicked);
-
-
-  g.append("path")
-      .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
-      .attr("class", "states")
-      .attr("d", path)
-      .selectAll("path")
-
-
-
-}
-
-
-
-
-
-function clicked(d) {
-  var x, y, k;
-
-  console.log("click")
-
-
-  if (d && centered !== d) {
-    var centroid = path.centroid(d);
-    x = centroid[0];
-    y = centroid[1];
-    k = 4;
-    centered = d;
-    $reset.show();
-
-  } else {
-    x = width / 2;
-    y = height / 2;
-    k = 1;
-    centered = null;
-    $reset.hide();
-
-  }
-
-  g.selectAll("path")
-  .classed("active", centered && function(d) { return d === centered; });
-
-  g.transition()
-  .duration(750)
-  .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
-  .style("stroke-width", 1.5 / k + "px");
-
-}
-
-$reset.on('click', function (e) {
-    x = width / 2;
-    y = height / 2;
-    k = 1;
-    centered = null;
-
-  g.selectAll("path")
-  .classed("active", centered && function(d) { return d === centered; });
-
-  g.transition()
-  .duration(750)
-  .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
-  .style("stroke-width", 1.5 / k + "px");
-
-  $reset.hide();
-
-
-});
-
-
-</script>
