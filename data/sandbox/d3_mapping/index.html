@@ -43,6 +43,7 @@
 </style>
 <div><button id="reset">Reset Map</button></div>
 
+<div id="mbMap"></div>
 <svg width="960" height="600"></svg>
 <script src="http://d3js.org/d3.v4.min.js"></script>
 <script src="http://d3js.org/topojson.v1.min.js"></script>
@@ -53,6 +54,7 @@
 var     centered;
 var $reset = $('button[id=reset]').hide()
 
+                         
 var svg = d3.select("svg"),
     width = +svg.attr("width"),
     height = +svg.attr("height");
@@ -79,7 +81,10 @@ d3.queue()
 
 function ready(error, us) {
   if (error) throw error;
-    
+  
+  
+  countyBounds = topojson.feature(us, us.objects.counties).features;
+  
   g.append("g")
     .attr("class", "counties")
     .selectAll("path")
@@ -90,6 +95,16 @@ function ready(error, us) {
         return quantize(rateById.get(d.id));
       })
       .attr("d", path)
+      .on('mouseover', function (d) {
+          d3.select(this)
+          .style('stroke', '#fff')
+          .style('stroke-width', '2.5px');
+        })
+      .on('mouseout', function (d) {
+          d3.select(this)
+          .style('stroke', 'none');
+        })
+
       .on("click", clicked);
 
 
@@ -98,57 +113,30 @@ function ready(error, us) {
       .attr("class", "states")
       .attr("d", path)
       .selectAll("path")
-
-
-
-}
-
-
-
-// transition from d3 view to mapbox view on click
-function clicked2(d) {
-  $d3Map.fadeOut(600);
-  $mbMap.fadeIn(1000);
-  var centroid = path.centroid(d);
-  var x = centroid[0];
-  var y = centroid[1];
-  var zoom = 1;
-  $reset.show();
-  $mbMap.attr('style', 'visibility: visible;');
-  $bottom.addClass('detail');
-  
-  var stateBounds = getBounds(getState(d.properties.s));
-  overlayLayers.push(stateBounds);
-  
-  // hardcode AK
-  if (d.properties.s === 'AK') {
-    mbMap.fitBounds([[54.113578, -165.835171], [70.568625, -142.547859]]);
-  } else {
-    mbMap.fitBounds(stateBounds.getBounds());
-  }
-  
-  g.transition()
-  .duration(750)
-  .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')scale(' + zoom + ')translate(' + -x + ',' + -y + ')')
-  .style('stroke-width', 1.5 / zoom + 'px');
 }
 
 
 function clicked(d) {
   var x, y, k;
-  
+
   console.log("click")
+
+
   if (d && centered !== d) {
     var centroid = path.centroid(d);
     x = centroid[0];
     y = centroid[1];
     k = 4;
     centered = d;
+    $reset.show();
+
   } else {
     x = width / 2;
     y = height / 2;
     k = 1;
     centered = null;
+    $reset.hide();
+
   }
   
   g.selectAll("path")
@@ -159,7 +147,6 @@ function clicked(d) {
   .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
   .style("stroke-width", 1.5 / k + "px");
   
-  $reset.show();
 
 }
 
@@ -177,7 +164,7 @@ $reset.on('click', function (e) {
   .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
   .style("stroke-width", 1.5 / k + "px");
 
-          $reset.hide();
+  $reset.hide();
 
           
 });
