@@ -1,3 +1,5 @@
+whd_whisard.csv # Big data file, just commit zipped file
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
