@@ -74,3 +74,7 @@ states_vis = cts_by_st_y.max(axis=0).sort_values(ascending=False).iloc[:10].inde
 ax = cts_by_st_y[states_vis].plot()
 ax.set_xlim([2000, 2016])
 plt.show()
+
+popd =pd.read_csv('~/Desktop/ST-EST00INT-ALLDATA.csv')
+
+popd[(popd['SEX']==0) & (popd['ORIGIN']==0) & (popd['AGEGRP']==0) & (popd['RACE']==0)]
