@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
 <style>
   .counties {
     fill: none;
@@ -20,13 +22,36 @@
   .q6-9 { fill:rgb(212,0,0); }
   .q7-9 { fill:rgb(170,0,0);}
   .q8-9 { fill:rgb(128,0,0); }
+  
+  
+  button {
+    padding: 10px 10px 10px 10px;
+    background-color: white;
+    color: #636363;
+    box-shadow: 0 1.5px 0 #e2e2e2;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    border: 1.5px solid #c2c2c2;
+    font-family: 'Arial';
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 12px;
+    text-align: center;
+    cursor: pointer;
+  }
+
 </style>
+<div><button id="reset">Reset Map</button></div>
+
 <svg width="960" height="600"></svg>
 <script src="http://d3js.org/d3.v4.min.js"></script>
 <script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+
 <script>
 
 var     centered;
+var $reset = $('button[id=reset]').hide()
 
 var svg = d3.select("svg"),
     width = +svg.attr("width"),
@@ -54,9 +79,9 @@ d3.queue()
 
 function ready(error, us) {
   if (error) throw error;
-
+    
   g.append("g")
-      .attr("class", "counties")
+    .attr("class", "counties")
     .selectAll("path")
       .data(topojson.feature(us, us.objects.counties).features)
     .enter().append("path")
@@ -66,7 +91,8 @@ function ready(error, us) {
       })
       .attr("d", path)
       .on("click", clicked);
-      
+
+
   g.append("path")
       .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
       .attr("class", "states")
@@ -74,7 +100,40 @@ function ready(error, us) {
       .selectAll("path")
 
 
+
 }
+
+
+
+// transition from d3 view to mapbox view on click
+function clicked2(d) {
+  $d3Map.fadeOut(600);
+  $mbMap.fadeIn(1000);
+  var centroid = path.centroid(d);
+  var x = centroid[0];
+  var y = centroid[1];
+  var zoom = 1;
+  $reset.show();
+  $mbMap.attr('style', 'visibility: visible;');
+  $bottom.addClass('detail');
+  
+  var stateBounds = getBounds(getState(d.properties.s));
+  overlayLayers.push(stateBounds);
+  
+  // hardcode AK
+  if (d.properties.s === 'AK') {
+    mbMap.fitBounds([[54.113578, -165.835171], [70.568625, -142.547859]]);
+  } else {
+    mbMap.fitBounds(stateBounds.getBounds());
+  }
+  
+  g.transition()
+  .duration(750)
+  .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')scale(' + zoom + ')translate(' + -x + ',' + -y + ')')
+  .style('stroke-width', 1.5 / zoom + 'px');
+}
+
+
 function clicked(d) {
   var x, y, k;
   
@@ -99,6 +158,29 @@ function clicked(d) {
   .duration(750)
   .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
   .style("stroke-width", 1.5 / k + "px");
+  
+  $reset.show();
+
 }
+
+$reset.on('click', function (e) {
+    x = width / 2;
+    y = height / 2;
+    k = 1;
+    centered = null;
+
+  g.selectAll("path")
+  .classed("active", centered && function(d) { return d === centered; });
+  
+  g.transition()
+  .duration(750)
+  .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
+  .style("stroke-width", 1.5 / k + "px");
+
+          $reset.hide();
+
+          
+});
+
 
 </script>
