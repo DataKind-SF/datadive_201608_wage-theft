@@ -50,8 +50,8 @@
 
 <script>
 
-var     centered;
 var $reset = $('button[id=reset]').hide()
+var centered;
 
 var svg = d3.select("svg"),
     width = +svg.attr("width"),
@@ -60,7 +60,7 @@ var svg = d3.select("svg"),
 var rateById = d3.map();
 
 var quantize = d3.scaleQuantize()
-    .domain([0, 0.15])
+    .domain([0, 1000000])
     .range(d3.range(9).map(function(i) { return "q" + i + "-9"; }));
 
 var projection = d3.geoAlbersUsa()
@@ -74,7 +74,7 @@ var g = svg.append("g");
 
 d3.queue()
     .defer(d3.json, "us.json")
-    .defer(d3.tsv, "unemployment.tsv", function(d) { rateById.set(d.id, +d.rate); })
+    .defer(d3.csv, "fips_backwages.csv", function(d) { rateById.set(d.id, +d.amount); })
     .await(ready);
 
 function ready(error, us) {
@@ -86,7 +86,6 @@ function ready(error, us) {
       .data(topojson.feature(us, us.objects.counties).features)
     .enter().append("path")
       .attr("class", function(d) {
-//        console.log(quantize(rateById.get(d.id)));
         return quantize(rateById.get(d.id));
       })
       .attr("d", path)
