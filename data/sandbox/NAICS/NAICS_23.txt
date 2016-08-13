@@ -1,0 +1,73 @@
+23;   ConstructionT
+236;   Construction of BuildingsT
+2361;   Residential Building ConstructionT
+23611;   Residential Building ConstructionT
+236115;   New Single-Family Housing Construction (except For-Sale Builders)
+236116;   New Multifamily Housing Construction (except For-Sale Builders)
+236117;   New Housing For-Sale Builders
+236118;   Residential Remodelers
+2362;   Nonresidential Building ConstructionT
+23621;   Industrial Building ConstructionT
+236210;   Industrial Building Construction
+23622;   Commercial and Institutional Building ConstructionT
+236220;   Commercial and Institutional Building Construction
+237;   Heavy and Civil Engineering ConstructionT
+2371;   Utility System ConstructionT
+23711;   Water and Sewer Line and Related Structures ConstructionT
+237110;   Water and Sewer Line and Related Structures Construction
+23712;   Oil and Gas Pipeline and Related Structures ConstructionT
+237120;   Oil and Gas Pipeline and Related Structures Construction
+23713;   Power and Communication Line and Related Structures ConstructionT
+237130;   Power and Communication Line and Related Structures Construction
+2372;   Land SubdivisionT
+23721;   Land SubdivisionT
+237210;   Land Subdivision
+2373;   Highway, Street, and Bridge ConstructionT
+23731;   Highway, Street, and Bridge ConstructionT
+237310;   Highway, Street, and Bridge Construction
+2379;   Other Heavy and Civil Engineering ConstructionT
+23799;   Other Heavy and Civil Engineering ConstructionT
+237990;   Other Heavy and Civil Engineering Construction
+238;   Specialty Trade ContractorsT
+2381;   Foundation, Structure, and Building Exterior ContractorsT
+23811;   Poured Concrete Foundation and Structure Contractors
+238110;   Poured Concrete Foundation and Structure Contractors
+23812;   Structural Steel and Precast Concrete Contractors
+238120;   Structural Steel and Precast Concrete Contractors
+23813;   Framing Contractors
+238130;   Framing Contractors
+23814;   Masonry Contractors
+238140;   Masonry Contractors
+23815;   Glass and Glazing Contractors
+238150;   Glass and Glazing Contractors
+23816;   Roofing Contractors
+238160;   Roofing Contractors
+23817;   Siding Contractors
+238170;   Siding Contractors
+23819;   Other Foundation, Structure, and Building Exterior Contractors
+238190;   Other Foundation, Structure, and Building Exterior Contractors
+2382;   Building Equipment ContractorsT
+23821;   Electrical Contractors and Other Wiring Installation ContractorsT
+238210;   Electrical Contractors and Other Wiring Installation Contractors
+23822;   Plumbing, Heating, and Air-Conditioning ContractorsT
+238220;   Plumbing, Heating, and Air-Conditioning Contractors
+23829;   Other Building Equipment ContractorsT
+238290;   Other Building Equipment Contractors
+2383;   Building Finishing ContractorsT
+23831;   Drywall and Insulation ContractorsT
+238310;   Drywall and Insulation Contractors
+23832;   Painting and Wall Covering ContractorsT
+238320;   Painting and Wall Covering Contractors
+23833;   Flooring ContractorsT
+238330;   Flooring Contractors
+23834;   Tile and Terrazzo ContractorsT
+238340;   Tile and Terrazzo Contractors
+23835;   Finish Carpentry ContractorsT
+238350;   Finish Carpentry Contractors
+23839;   Other Building Finishing ContractorsT
+238390;   Other Building Finishing Contractors
+2389;   Other Specialty Trade ContractorsT
+23891;   Site Preparation ContractorsT
+238910;   Site Preparation Contractors
+23899;   All Other Specialty Trade ContractorsT
+238990;   All Other Specialty Trade Contractors

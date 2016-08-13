@@ -1,0 +1,96 @@
+Industry,NAICS3,NAICS Code,Number of Cases,EEs Employed in Violation,Minimum Wage Backwages,Backwages,Minimum Wage Backwages per Employee,Backwages per Employee,Penalty Assessed,Employees in Industry,Avg Weekly Pay,Establishments in Industry
+Nursing and Residential Care Facilities,623,62,230,1905,1914421.61,7013156.23,1491,5422.77,45507,59992,524,2193
+Food Services and Drinking Places,722,72,193,2017,1012220.83,3563286.66,649,2378.73,76160.74,313668,323,19665
+Computer and Electronic Product Manufacturing,334,33,9,466,524160,789464.96,182,5589.78,18150,63388,1061,1112
+Couriers and Messengers,492,49,4,421,496094.71,2041812.82,834,3437.75,0,14536,534,387
+"Performing Arts, Spectator Sports, and Related Industries",711,71,10,281,293703.76,839772.4,383,2009.1,1550,9143,544,1149
+Specialty Trade Contractors,238,23,62,1444,167231.52,2386886.41,77,1818.13,3278,107144,953,9474
+"Amusement, Gambling, and Recreation Industries",713,71,18,279,110547.13,146753.73,193,963.06,26735,46869,350,1763
+Administrative and Support Services,561,56,84,1716,97798.62,2335315.62,201,2513.31,13750,200807,620,9870
+Truck Transportation,484,48,15,635,96903.5,2354674.65,314,2196.2,0,15158,724,1525
+Nonstore Retailers ,454,45,4,70,77516.17,105635.45,318,849,749,18849,925,1806
+Food and Beverage Stores ,445,44,60,426,75968.81,439346.41,620,1838.88,99816,84212,512,4111
+Utilities ,221,22,7,223,63353.84,894525.05,2835,11886.14,6160,4887,706,168
+Repair and Maintenance,811,81,36,648,52429.58,620456.97,79,1056.11,0,33441,682,5189
+Miscellaneous Manufacturing,339,33,6,151,46223.93,133180.76,953,2954.67,9900,13689,693,809
+Social Assistance,624,62,40,1063,42458.77,2065355.62,166,1161.68,400,79150,462,5484
+"Professional, Scientific, and Technical Services",541,54,110,1547,39488.32,3896117.78,174,9274.97,86972.5,385561,1361,33827
+Personal and Laundry Services,812,81,22,319,35118.82,267221.89,103,1534.68,24926,43549,496,6480
+"Data Processing, Hosting, and Related Services",518,51,5,445,33092.01,3831481.61,201,8045.2,0,30725,1566,849
+Private Households,814,81,4,4,32581.75,35160.25,8146,8790,0,,,
+Publishing Industries (except Internet),511,51,5,71,28654.88,215358.54,819,3723,0,75224,1525,1470
+"Electrical Equipment, Appliance, and Component Manufacturing",335,33,2,136,26217.84,114722.25,874,1264,0,5489,708,213
+Educational Services,611,61,10,80,25963.24,356928.9,1151,5913.7,0,116636,531,3958
+Transit and Ground Passenger Transportation,485,48,10,254,24488.14,252683.53,182,1690.3,7150,11267,352,584
+Health and Personal Care Stores ,446,44,12,37,21680.08,200514.83,278,3616,27648.5,24237,680,2055
+Real Estate,531,53,7,35,17415.29,128244.71,370,3595,0,48732,944,10307
+Printing and Related Support Activities,323,32,5,23,17264.17,25338.25,570,992.8,3520,8243,742,679
+"Merchant Wholesalers, Nondurable Goods ",424,42,12,35,17254.98,74749.63,472,4309.83,2025,66118,1434,3607
+Ambulatory Health Care Services,621,62,55,344,15093.02,573716.58,68,2276.42,2706,170037,1153,16764
+"Religious, Grantmaking, Civic, Professional, and Similar Organizations",813,81,5,26,14938.46,63257.09,187,9603.2,0,65640,588,6005
+Construction of Buildings,236,23,40,436,14035.63,1095723.42,270,2750.08,0,42740,961,6672
+"Sporting Goods, Hobby, Musical Instrument, and Book Stores ",451,45,2,21,13988.88,17189.78,918,1060,0,14754,300,1245
+"Merchant Wholesalers, Durable Goods ",423,42,9,77,9432,310006.96,175,25988.67,8730,146193,1448,6135
+Food Manufacturing,311,31,6,38,9346.55,116180.87,519,4527.67,7480,29751,635,924
+Broadcasting (except Internet),515,51,2,27,8888.5,26147.45,635,1066.5,0,4609,679,200
+Plastics and Rubber Products Manufacturing,326,32,1,8,8700,8700,1088,1088,0,3771,537,174
+Miscellaneous Store Retailers ,453,45,12,25,7354.15,33032.97,298,1512.92,900,20010,406,2706
+Paper Manufacturing,322,32,1,11,6564.11,6564.11,597,597,0,2394,363,57
+Postal Service,491,49,9,11,5192.63,15738.29,534,1705.67,0,,,
+State and Local Government,969,96,4,18,4603,61031.51,228,3389.75,0,,,
+Support Activities for Transportation,488,48,4,16,3492.69,30244.19,873,2102,0,17277,640,1019
+"Securities, Commodity Contracts, and Other Financial Investments and Related Activities",523,52,3,20,3144,36533.79,1048,3265.33,0,33147,2951,3899
+Insurance Carriers and Related Activities,524,52,4,22,2633.13,20565.05,110,763.5,2244,36851,1071,3792
+State and Local Government,974,97,3,29,2610.29,5043.53,409,773.67,0,,,
+Crop Production,111,11,43,885,2387.97,98799.34,3,185.19,112281.25,,,
+State and Local Government,971,97,3,17,2340,2393.48,111,114.33,0,,,
+Credit Intermediation and Related Activities,522,52,7,566,1939.59,1102780.8,277,4503.71,0,70067,1670,4155
+Apparel Manufacturing,315,31,15,146,1902.94,263773.08,19,1519.2,0,1850,217,213
+General Merchandise Stores ,452,45,4,24,1405.5,35063.39,117,1828,0,46685,370,557
+State and Local Government,989,98,8,30,1104,34105.61,138,1999.75,0,,,
+Motor Vehicle and Parts Dealers ,441,44,19,160,924.49,99021.52,42,1037.89,32422.5,34556,872,1808
+Beverage and Tobacco Product Manufacturing,312,31,6,77,842.43,22799.72,140,893.33,8775,18864,757,914
+Telecommunications,517,51,2,2,735.88,1362.76,368,681.5,0,22640,1239,1394
+Furniture and Related Product Manufacturing,337,33,4,21,725,13753.57,181,688.75,0,4423,659,384
+Fabricated Metal Product Manufacturing,332,33,3,63,541.62,103436.72,181,2129,0,21526,754,1287
+Air Transportation,481,48,1,5,507.5,507.5,102,102,0,17270,374,119
+Nonmetallic Mineral Product Manufacturing,327,32,1,1,435,435,435,435,0,5274,653,263
+"Administration of Housing Programs, Urban Planning, and Community Development ",925,92,2,26,425.94,39472.93,8,3048,495,,,
+Heavy and Civil Engineering Construction,237,23,21,211,239.25,520750.04,11,2534.33,0,13696,1160,713
+Hospitals,622,62,10,253,157.2,149867.78,16,1737.9,0,106545,982,114
+State and Local Government,516,51,1,26,73.62,3178.58,3,122,0,,,
+Furniture and Home Furnishings Stores ,442,44,1,2,54.39,54.39,27,27,0,11387,518,1355
+State and Local Government,977,97,1,1,0,77.22,0,77,0,,,
+Waste Management and Remediation Services,562,56,3,22,0,24171.94,0,1044.67,0,12442,828,420
+Warehousing and Storage,493,49,2,2,0,15244.52,0,7622,0,4353,490,291
+Clothing and Clothing Accessories Stores ,448,44,8,634,0,1072178.11,0,2201.75,11158,52679,318,4087
+Chemical Manufacturing,325,32,2,61,0,111234.87,0,29977,0,8731,657,299
+Support Activities for Agriculture and Forestry,115,11,34,756,0,326901.65,0,175.74,1272925,3076,446,306
+Animal Production and Aquaculture,112,11,6,182,0,123204.73,0,575.83,48525,,,
+Water Transportation,483,48,5,108,0,215574.79,0,3789,0,2128,171,32
+Support Activities for Mining,213,21,1,7,0,595.91,0,85,0,212,268,24
+Wholesale Electronic Markets and Agents and Brokers ,425,42,1,1,0,121.6,0,122,0,7210,1254,1073
+Administration of Human Resource Programs ,923,92,1,1,0,617.59,0,618,0,,,
+Administration of Economic Programs ,926,92,2,94,0,188287.39,0,39468.5,0,,,
+Building Material and Garden Equipment and Supplies Dealers ,444,44,4,110,0,207687.58,0,2134.25,420.75,29424,558,1747
+State and Local Government,939,93,1,1,0,1484.64,0,1485,0,,,
+Primary Metal Manufacturing,331,33,2,17,0,16676.85,0,1257,0,1789,356,59
+Petroleum and Coal Products Manufacturing,324,32,2,323,0,334428.99,0,1471.5,0,3606,437,42
+Other Information Services,519,51,2,2,0,18141.99,0,9071,0,20872,1449,928
+Oil and Gas Extraction,211,21,1,15,0,6945.73,0,463,0,28,0,13
+Wood Product Manufacturing,321,32,1,8,0,4218.57,0,527,0,3021,476,198
+Transportation Equipment Manufacturing,336,33,3,7,0,28128.93,0,2755.67,0,234,190,155
+Accommodation,721,72,9,66,0,69736.78,0,1981.78,1320,58293,481,1883
+Motion Picture and Sound Recording Industries,512,51,2,25,0,37167.35,0,978,4455,10466,529,694
+State and Local Government,966,96,1,1,0,2452.8,0,2453,0,,,
+State and Local Government,918,91,1,42,0,193.97,0,5,0,,,
+Electronics and Appliance Stores ,443,44,3,4,0,27557.4,0,7351,0,12717,522,1184
+Machinery Manufacturing,333,33,4,18,0,21518.52,0,844,7500,10474,791,421
+State and Local Government,962,96,2,6,0,22358.65,0,5433.5,0,,,
+Gasoline Stations ,447,44,12,255,0,60092.11,0,733.42,0,10393,368,1437
+Rental and Leasing Services,532,53,1,19,0,28924.88,0,1522,0,12212,786,1118
+Forestry and Logging,113,11,5,52,0,7669.36,0,70.4,32025,470,389,75
+Monetary Authorities-Central Bank,521,52,3,26,0,70784.67,0,2633.67,1100,0,0,2
+State and Local Government,968,96,3,99,0,20940.75,0,245.67,0,,,
+"Executive, Legislative, and Other General Government Support ",921,92,3,22,0,60333.89,0,15507,0,,,
+State and Local Government,911,91,1,1,0,5091.23,0,5091,0,,,

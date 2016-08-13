@@ -1,0 +1,532 @@
+{
+ "currentVersion": 10.41,
+ "id": 79,
+ "name": "Santa Clara County Cities & Towns",
+ "type": "Feature Layer",
+ "description": "Cities & towns within Santa Clara County.",
+ "geometryType": "esriGeometryPolygon",
+ "copyrightText": "County of Santa Clara, 2013",
+ "parentLayer": {
+  "id": 0,
+  "name": "SCCMap1"
+ },
+ "subLayers": [],
+ "minScale": 0,
+ "maxScale": 0,
+ "drawingInfo": {
+  "renderer": {
+   "type": "uniqueValue",
+   "field1": "NAME",
+   "field2": null,
+   "field3": null,
+   "fieldDelimiter": ", ",
+   "defaultSymbol": null,
+   "defaultLabel": null,
+   "uniqueValueInfos": [
+    {
+     "symbol": {
+      "type": "esriSFS",
+      "style": "esriSFSSolid",
+      "color": [
+       238,
+       230,
+       200,
+       255
+      ],
+      "outline": {
+       "type": "esriSLS",
+       "style": "esriSLSNull",
+       "color": [
+        0,
+        0,
+        0,
+        0
+       ],
+       "width": 0
+      }
+     },
+     "value": "CAMPBELL",
+     "label": "CAMPBELL",
+     "description": ""
+    },
+    {
+     "symbol": {
+      "type": "esriSFS",
+      "style": "esriSFSSolid",
+      "color": [
+       227,
+       199,
+       228,
+       255
+      ],
+      "outline": {
+       "type": "esriSLS",
+       "style": "esriSLSNull",
+       "color": [
+        0,
+        0,
+        0,
+        0
+       ],
+       "width": 0
+      }
+     },
+     "value": "CUPERTINO",
+     "label": "CUPERTINO",
+     "description": ""
+    },
+    {
+     "symbol": {
+      "type": "esriSFS",
+      "style": "esriSFSSolid",
+      "color": [
+       222,
+       201,
+       197,
+       255
+      ],
+      "outline": {
+       "type": "esriSLS",
+       "style": "esriSLSNull",
+       "color": [
+        0,
+        0,
+        0,
+        0
+       ],
+       "width": 0
+      }
+     },
+     "value": "GILROY",
+     "label": "GILROY",
+     "description": ""
+    },
+    {
+     "symbol": {
+      "type": "esriSFS",
+      "style": "esriSFSSolid",
+      "color": [
+       188,
+       198,
+       226,
+       255
+      ],
+      "outline": {
+       "type": "esriSLS",
+       "style": "esriSLSNull",
+       "color": [
+        0,
+        0,
+        0,
+        0
+       ],
+       "width": 0
+      }
+     },
+     "value": "LOS ALTOS",
+     "label": "LOS ALTOS",
+     "description": ""
+    },
+    {
+     "symbol": {
+      "type": "esriSFS",
+      "style": "esriSFSSolid",
+      "color": [
+       219,
+       201,
+       178,
+       255
+      ],
+      "outline": {
+       "type": "esriSLS",
+       "style": "esriSLSNull",
+       "color": [
+        0,
+        0,
+        0,
+        0
+       ],
+       "width": 0
+      }
+     },
+     "value": "LOS ALTOS HILLS",
+     "label": "LOS ALTOS HILLS",
+     "description": ""
+    },
+    {
+     "symbol": {
+      "type": "esriSFS",
+      "style": "esriSFSSolid",
+      "color": [
+       234,
+       217,
+       213,
+       255
+      ],
+      "outline": {
+       "type": "esriSLS",
+       "style": "esriSLSNull",
+       "color": [
+        0,
+        0,
+        0,
+        0
+       ],
+       "width": 0
+      }
+     },
+     "value": "LOS GATOS",
+     "label": "LOS GATOS",
+     "description": ""
+    },
+    {
+     "symbol": {
+      "type": "esriSFS",
+      "style": "esriSFSSolid",
+      "color": [
+       231,
+       213,
+       227,
+       255
+      ],
+      "outline": {
+       "type": "esriSLS",
+       "style": "esriSLSNull",
+       "color": [
+        0,
+        0,
+        0,
+        0
+       ],
+       "width": 0
+      }
+     },
+     "value": "MILPITAS",
+     "label": "MILPITAS",
+     "description": ""
+    },
+    {
+     "symbol": {
+      "type": "esriSFS",
+      "style": "esriSFSSolid",
+      "color": [
+       222,
+       219,
+       207,
+       255
+      ],
+      "outline": {
+       "type": "esriSLS",
+       "style": "esriSLSNull",
+       "color": [
+        0,
+        0,
+        0,
+        0
+       ],
+       "width": 0
+      }
+     },
+     "value": "MONTE SERENO",
+     "label": "MONTE SERENO",
+     "description": ""
+    },
+    {
+     "symbol": {
+      "type": "esriSFS",
+      "style": "esriSFSSolid",
+      "color": [
+       202,
+       220,
+       230,
+       255
+      ],
+      "outline": {
+       "type": "esriSLS",
+       "style": "esriSLSNull",
+       "color": [
+        0,
+        0,
+        0,
+        0
+       ],
+       "width": 0
+      }
+     },
+     "value": "MORGAN HILL",
+     "label": "MORGAN HILL",
+     "description": ""
+    },
+    {
+     "symbol": {
+      "type": "esriSFS",
+      "style": "esriSFSSolid",
+      "color": [
+       208,
+       231,
+       230,
+       255
+      ],
+      "outline": {
+       "type": "esriSLS",
+       "style": "esriSLSNull",
+       "color": [
+        0,
+        0,
+        0,
+        0
+       ],
+       "width": 0
+      }
+     },
+     "value": "MOUNTAIN VIEW",
+     "label": "MOUNTAIN VIEW",
+     "description": ""
+    },
+    {
+     "symbol": {
+      "type": "esriSFS",
+      "style": "esriSFSSolid",
+      "color": [
+       229,
+       200,
+       209,
+       255
+      ],
+      "outline": {
+       "type": "esriSLS",
+       "style": "esriSLSNull",
+       "color": [
+        0,
+        0,
+        0,
+        0
+       ],
+       "width": 0
+      }
+     },
+     "value": "PALO ALTO",
+     "label": "PALO ALTO",
+     "description": ""
+    },
+    {
+     "symbol": {
+      "type": "esriSFS",
+      "style": "esriSFSSolid",
+      "color": [
+       196,
+       223,
+       211,
+       255
+      ],
+      "outline": {
+       "type": "esriSLS",
+       "style": "esriSLSNull",
+       "color": [
+        0,
+        0,
+        0,
+        0
+       ],
+       "width": 0
+      }
+     },
+     "value": "SAN JOSE",
+     "label": "SAN JOSE",
+     "description": ""
+    },
+    {
+     "symbol": {
+      "type": "esriSFS",
+      "style": "esriSFSSolid",
+      "color": [
+       201,
+       213,
+       227,
+       255
+      ],
+      "outline": {
+       "type": "esriSLS",
+       "style": "esriSLSNull",
+       "color": [
+        0,
+        0,
+        0,
+        0
+       ],
+       "width": 0
+      }
+     },
+     "value": "SANTA CLARA",
+     "label": "SANTA CLARA",
+     "description": ""
+    },
+    {
+     "symbol": {
+      "type": "esriSFS",
+      "style": "esriSFSSolid",
+      "color": [
+       203,
+       208,
+       228,
+       255
+      ],
+      "outline": {
+       "type": "esriSLS",
+       "style": "esriSLSNull",
+       "color": [
+        0,
+        0,
+        0,
+        0
+       ],
+       "width": 0
+      }
+     },
+     "value": "SARATOGA",
+     "label": "SARATOGA",
+     "description": ""
+    },
+    {
+     "symbol": {
+      "type": "esriSFS",
+      "style": "esriSFSSolid",
+      "color": [
+       227,
+       230,
+       200,
+       255
+      ],
+      "outline": {
+       "type": "esriSLS",
+       "style": "esriSLSNull",
+       "color": [
+        0,
+        0,
+        0,
+        0
+       ],
+       "width": 0
+      }
+     },
+     "value": "SUNNYVALE",
+     "label": "SUNNYVALE",
+     "description": ""
+    },
+    {
+     "symbol": {
+      "type": "esriSFS",
+      "style": "esriSFSSolid",
+      "color": [
+       232,
+       225,
+       218,
+       255
+      ],
+      "outline": {
+       "type": "esriSLS",
+       "style": "esriSLSNull",
+       "color": [
+        110,
+        110,
+        110,
+        255
+       ],
+       "width": 0
+      }
+     },
+     "value": "UNINCORPORATED",
+     "label": "UNINCORPORATED",
+     "description": ""
+    }
+   ]
+  },
+  "transparency": 50,
+  "labelingInfo": null
+ },
+ "defaultVisibility": true,
+ "extent": {
+  "xmin": -1.36035384133E7,
+  "ymin": 4424206.433600001,
+  "xmax": -1.34928554712E7,
+  "ymax": 4506889.340300001,
+  "spatialReference": {
+   "wkid": 102100,
+   "latestWkid": 3857
+  }
+ },
+ "hasAttachments": false,
+ "htmlPopupType": "esriServerHTMLPopupTypeAsHTMLText",
+ "displayField": "NAME",
+ "typeIdField": null,
+ "fields": [
+  {
+   "name": "OBJECTID",
+   "type": "esriFieldTypeOID",
+   "alias": "OBJECTID",
+   "domain": null
+  },
+  {
+   "name": "Shape",
+   "type": "esriFieldTypeGeometry",
+   "alias": "Shape",
+   "domain": null
+  },
+  {
+   "name": "NAME",
+   "type": "esriFieldTypeString",
+   "alias": "NAME",
+   "length": 50,
+   "domain": null
+  },
+  {
+   "name": "Shape_Length",
+   "type": "esriFieldTypeDouble",
+   "alias": "Shape_Length",
+   "domain": null
+  },
+  {
+   "name": "Shape_Area",
+   "type": "esriFieldTypeDouble",
+   "alias": "Shape_Area",
+   "domain": null
+  }
+ ],
+ "indexes": [
+  {
+   "name": "FDO_OBJECTID",
+   "fields": "OBJECTID",
+   "isAscending": true,
+   "isUnique": true,
+   "description": ""
+  },
+  {
+   "name": "FDO_Shape",
+   "fields": "Shape",
+   "isAscending": true,
+   "isUnique": false,
+   "description": ""
+  }
+ ],
+ "relationships": [],
+ "canModifyLayer": false,
+ "canScaleSymbols": false,
+ "hasLabels": false,
+ "capabilities": "Map,Query,Data",
+ "maxRecordCount": 1000,
+ "supportsStatistics": true,
+ "supportsAdvancedQueries": true,
+ "supportedQueryFormats": "JSON, AMF, geoJSON",
+ "ownershipBasedAccessControlForFeatures": {"allowOthersToQuery": true},
+ "useStandardizedQueries": true,
+ "advancedQueryCapabilities": {
+  "useStandardizedQueries": true,
+  "supportsStatistics": true,
+  "supportsOrderBy": true,
+  "supportsDistinct": true,
+  "supportsPagination": true,
+  "supportsTrueCurve": true,
+  "supportsReturningQueryExtent": true,
+  "supportsQueryWithDistance": true
+ }
+}
