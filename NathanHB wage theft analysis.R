@@ -34,3 +34,16 @@
 # 6. Find unusual data points (high or low) to help find possible trouble spots
 # 7. Save results in a format which can be managed and added to consistently going forward into the future (perhaps an online SQL database)
 
+# Step 1: load data and packages
+library("readr")
+library("dplyr")
+df = read.csv("~/Downloads/whd_whisard.naicNumericLevels.csv")
+colnames(df)
+df_subset = df[c(1:10, 12, 111:116)]
+summary(df_subset)
+
+df_byNaic2
+df_byNaic3 = group_by(df_subset, naic_cd_lvl3)
+sum_df_byNaic3 = summarize()
+df_byNaic4
+
