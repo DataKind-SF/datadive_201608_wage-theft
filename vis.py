@@ -13,6 +13,11 @@ judgements = pd.read_csv(datadir + '/' + judgements_files)
 data_dic = pd.read_csv(datadir + '/' + data_dic_file)
 df_whiz = pd.read_csv(datadir + '/' + whisard)
 
+df_zip = pd.read_csv('data/sandbox/zip_code_database_all_us.csv')
+
+# join whisard and zip
+pd.merge(df_whiz, df_zip, left_on='zip_cd', right_on='zip').to_csv('data/processedWhdData/whd_whisard.joinedCounty.csv')
+
 # processed data
 df_whiz_p = pd.read_csv('data/processedWhdData/whd_whisard.joinedCounty.csv')
 df_whiz_h = pd.read_csv('data/processedWhdData/whd_whisard.naicHumanReadableLevels.csv')
