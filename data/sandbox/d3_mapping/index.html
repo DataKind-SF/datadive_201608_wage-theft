@@ -1,188 +1,190 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-<link rel="import" href="bower_components/paper-button/paper-button.html">
-<style>
-  .counties {
-    fill: none;
-  }
+<html lang="en">
+<head>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  .states {
-    fill: none;
-    stroke: #fff;
-    stroke-linejoin: round;
-  }
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="http://d3js.org/d3.v4.min.js"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <link rel="import" href="bower_components/paper-button/paper-button.html">
+    <link rel="import" href="bower_components/paper-header-panel/paper-header-panel.html">
+    <link rel="import" href="bower_components/paper-toolbar/paper-toolbar.html">
+  </head>
 
-  .q0-9 { fill:rgb(255,213,213); }
-  .q1-9 { fill:rgb(255,170,170); }
-  .q2-9 { fill:rgb(255,128,128); }
-  .q3-9 { fill:rgb(255,85,85); }
-  .q4-9 { fill:rgb(255,42,42); }
-  .q5-9 { fill:rgb(255,0,0); }
-  .q6-9 { fill:rgb(212,0,0); }
-  .q7-9 { fill:rgb(170,0,0);}
-  .q8-9 { fill:rgb(128,0,0); }
+  <style>
+    body {
+      font-family: "Raleway", "Helvetica Neue", helvetica;
+    }
+    #wrapper {
+      width: 960px;
+      margin: 0 auto;
+    }
 
+    #page-title {
+      font-weight: normal;
+      font-size: 48px;
+      text-align: center;
+    }
 
-  button {
-    padding: 10px 10px 10px 10px;
-    background-color: white;
-    color: #636363;
-    box-shadow: 0 1.5px 0 #e2e2e2;
-    border-radius: 3px;
-    -moz-border-radius: 3px;
-    border: 1.5px solid #c2c2c2;
-    font-family: 'Arial';
-    text-transform: uppercase;
-    font-weight: bold;
-    font-size: 12px;
-    text-align: center;
-    cursor: pointer;
-  }
+    .counties {
+      fill: none;
+    }
+    .counties path {
+      stroke: #fff;
+      stroke-width: .25;
+      stroke-linejoin: round;
+    }
+    .counties path:hover {
+      fill: #000;
+    }
 
-</style>
-<div>
-  <paper-button raised id="reset">Reset Map</paper-button>
-</div>
+    .states {
+      fill: none;
+      stroke: #fff;
+      stroke-width: 1;
+      stroke-linejoin: round;
+    }
 
-<svg width="960" height="600"></svg>
-<script src="http://d3js.org/d3.v4.min.js"></script>
-<script src="http://d3js.org/topojson.v1.min.js"></script>
-<script src="http://d3js.org/topojson.v1.min.js"></script>
+    #reset {
+      position: relative;
+      left: 8px;
+      top: -60px;
+      background-color: white;
+    }
 
-<script>
+    .q0-9 { fill:rgb(255,213,213); }
+    .q1-9 { fill:rgb(255,170,170); }
+    .q2-9 { fill:rgb(255,128,128); }
+    .q3-9 { fill:rgb(255,85,85); }
+    .q4-9 { fill:rgb(255,42,42); }
+    .q5-9 { fill:rgb(255,0,0); }
+    .q6-9 { fill:rgb(212,0,0); }
+    .q7-9 { fill:rgb(170,0,0);}
+    .q8-9 { fill:rgb(128,0,0); }
 
-var $reset = $('paper-button[id=reset]').hide()
-var centered;
+    button {
+      padding: 10px 10px 10px 10px;
+      background-color: white;
+      color: #636363;
+      box-shadow: 0 1.5px 0 #e2e2e2;
+      border-radius: 3px;
+      -moz-border-radius: 3px;
+      border: 1.5px solid #c2c2c2;
+      font-family: 'Arial';
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 12px;
+      text-align: center;
+      cursor: pointer;
+    }
+  
+  </style>
+</head>
+<body>
+  <div id="wrapper">
+    <h1 id="page-title">Wage Theft in the United States</h1>
+    <svg id="map" width="960" height="600"></svg>
+    <paper-button raised id="reset">Reset Map</paper-button>
+  </div>
+  <script>
+    var $reset = $('paper-button[id=reset]').hide()
+    var centered;
 
-var svg = d3.select("svg"),
-    width = +svg.attr("width"),
-    height = +svg.attr("height");
+    var svg = d3.select("svg"),
+        width = +svg.attr("width"),
+        height = +svg.attr("height");
 
-var rateById = d3.map();
+    var rateById = d3.map();
 
-var quantize = d3.scaleQuantize()
-    .domain([0, 1000000])
-    .range(d3.range(9).map(function(i) { return "q" + i + "-9"; }));
+    var quantize = d3.scaleQuantize()
+        .domain([0, 1000000])
+        .range(d3.range(9).map(function(i) { return "q" + i + "-9"; }));
 
-var projection = d3.geoAlbersUsa()
-    .scale(1280)
-    .translate([width / 2, height / 2]);
+    var projection = d3.geoAlbersUsa()
+        .scale(1280)
+        .translate([width / 2, height / 2]);
 
-var path = d3.geoPath()
-    .projection(projection);
+    var path = d3.geoPath()
+        .projection(projection);
 
-var g = svg.append("g");
+    var g = svg.append("g");
 
-d3.queue()
-    .defer(d3.json, "us.json")
-    .defer(d3.csv, "fips_backwages.csv", function(d) { rateById.set(d.id, +d.amount); })
-    .await(ready);
+    d3.queue()
+        .defer(d3.json, "us.json")
+        .defer(d3.csv, "fips_backwages.csv", function(d) { rateById.set(d.id, +d.amount); })
+        .await(ready);
 
-function ready(error, us) {
-  if (error) throw error;
+    function ready(error, us) {
+      if (error) throw error;
 
-  g.append("g")
-    .attr("class", "counties")
-    .selectAll("path")
-      .data(topojson.feature(us, us.objects.counties).features)
-    .enter().append("path")
-      .attr("class", function(d) {
-        return quantize(rateById.get(d.id));
-      })
-      .attr("d", path)
-      .on("click", clicked);
+      g.append("g")
+        .attr("class", "counties")
+        .selectAll("path")
+          .data(topojson.feature(us, us.objects.counties).features)
+        .enter().append("path")
+          .attr("class", function(d) {
+            return quantize(rateById.get(d.id));
+          })
+          .attr("d", path)
+          .on("click", clicked);
 
+      g.append("path")
+          .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
+          .attr("class", "states")
+          .attr("d", path)
+          .selectAll("path")
+    }
 
-  g.append("path")
-      .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
-      .attr("class", "states")
-      .attr("d", path)
-      .selectAll("path")
+    function clicked(d) {
+      var x, y, k;
 
+      if (d && centered !== d) {
+        var centroid = path.centroid(d);
+        x = centroid[0];
+        y = centroid[1];
+        k = 4;
+        centered = d;
+        $reset.show();
 
+      } else {
+        x = width / 2;
+        y = height / 2;
+        k = 1;
+        centered = null;
+        $reset.hide();
 
-}
+      }
 
+      g.selectAll("path")
+      .classed("active", centered && function(d) { return d === centered; });
 
+      g.transition()
+      .duration(750)
+      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
+      .style("stroke-width", 1.5 / k + "px");
 
-// transition from d3 view to mapbox view on click
-function clicked2(d) {
-  $d3Map.fadeOut(600);
-  $mbMap.fadeIn(1000);
-  var centroid = path.centroid(d);
-  var x = centroid[0];
-  var y = centroid[1];
-  var zoom = 1;
-  $reset.show();
-  $mbMap.attr('style', 'visibility: visible;');
-  $bottom.addClass('detail');
+    }
 
-  var stateBounds = getBounds(getState(d.properties.s));
-  overlayLayers.push(stateBounds);
+    $reset.on('click', function (e) {
+        x = width / 2;
+        y = height / 2;
+        k = 1;
+        centered = null;
 
-  // hardcode AK
-  if (d.properties.s === 'AK') {
-    mbMap.fitBounds([[54.113578, -165.835171], [70.568625, -142.547859]]);
-  } else {
-    mbMap.fitBounds(stateBounds.getBounds());
-  }
+      g.selectAll("path")
+      .classed("active", centered && function(d) { return d === centered; });
 
-  g.transition()
-  .duration(750)
-  .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')scale(' + zoom + ')translate(' + -x + ',' + -y + ')')
-  .style('stroke-width', 1.5 / zoom + 'px');
-}
+      g.transition()
+      .duration(750)
+      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
+      .style("stroke-width", 1.5 / k + "px");
 
-
-function clicked(d) {
-  var x, y, k;
-
-  console.log("click")
-  if (d && centered !== d) {
-    var centroid = path.centroid(d);
-    x = centroid[0];
-    y = centroid[1];
-    k = 4;
-    centered = d;
-  } else {
-    x = width / 2;
-    y = height / 2;
-    k = 1;
-    centered = null;
-  }
-
-  g.selectAll("path")
-  .classed("active", centered && function(d) { return d === centered; });
-
-  g.transition()
-  .duration(750)
-  .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
-  .style("stroke-width", 1.5 / k + "px");
-
-  $reset.show();
-
-}
-
-$reset.on('click', function (e) {
-    x = width / 2;
-    y = height / 2;
-    k = 1;
-    centered = null;
-
-  g.selectAll("path")
-  .classed("active", centered && function(d) { return d === centered; });
-
-  g.transition()
-  .duration(750)
-  .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
-  .style("stroke-width", 1.5 / k + "px");
-
-          $reset.hide();
-
-
-});
-
-
-</script>
+      $reset.hide();
+    });
+  </script>
+</body>
