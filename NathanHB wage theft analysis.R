@@ -39,7 +39,7 @@
 # 7. Save results in a format which can be managed and added to consistently going forward into the future (perhaps an online SQL database)
 
 # Step 1: load data and packages
-library("readr")
+# library("readr")
 library("dplyr")
 violations_path = "/Users/nathanhelm-burger/Documents/Dropbox/datadive_wagetheft/data/processedWhdData/"
 #df = data.frame(read_csv(paste0(violations_path, "whd_whisard.naicNumericLevels.csv")))
@@ -99,10 +99,7 @@ dfby3 = read.csv("df_grouped_byNaic2.csv")
 # Load and join industry data
 industry_df1 = read.csv("/Users/nathanhelm-burger/Documents/Dropbox/datadive_wagetheft/data/census/County Business Patterns/CountyBusinessPatternsCaliforniaNAICS2.csv")
 industry_df2 = read.csv("/Users/nathanhelm-burger/Documents/Dropbox/datadive_wagetheft/data/census/County Business Patterns/CountyBusinessPatternsCaliforniaNAICS3.csv")
-colnames(industry_df1)
-colnames(industry_df2)
-head(industry_df1)
-head(industry_df2)
+
 for(name_col in 5:9){
  colnames(industry_df2)[name_col] = paste0("Industry_NAICS3_", colnames(industry_df2)[name_col])
 }
@@ -117,38 +114,95 @@ View(industry_df_full)
 
 demg_path = "/Users/nathanhelm-burger/Documents/Dropbox/datadive_wagetheft/data/census/"
 
-demg1 = read_csv(paste0(demg_path, "county_wide_demographic.csv"))
+demg1 = read.csv(paste0(demg_path, "county_wide_demographic.csv"))
+colnames(demg1)
 colnames(demg1)[1] = "County"
 
-colnames(demg1)
 dim(demg1)
 industry_df_full$STATE = 6
 demg1$County = as.factor(demg1$County)
-california_demg = demg1[demg1['STATE']==6,]
-dim(california_demg)
-dim(industry_df_full)
-california_demg$County = as.factor(california_demg$County)
-setdiff(california_demg$County, industry_df_full$County)
-industry_demg = full_join(industry_df_full, california_demg)
+#california_demg = demg1[demg1['STATE']==6,]
+#dim(california_demg)
+#dim(industry_df_full)
+#california_demg$County = as.factor(california_demg$County)
+#setdiff(california_demg$County, industry_df_full$County)
+industry_demg = full_join(industry_df_full, demg1)
 dim(industry_demg)
 dim(industry_df_full)
-dim(california_demg)
+#dim(california_demg)
 
+colnames(industry_demg)[4]
+colnames(industry_demg)[10]
 colnames(industry_demg)[4] = "naic_cd_lvl2"
 colnames(industry_demg)[10] = "naic_cd_lvl3"
+colnames(industry_demg)[2] = "State"
+colnames(industry_demg)[1] = "st_cd"
+colnames(industry_demg)[c(1,4,10)] %in% colnames(df)
 
-colnames(df)
-colnames(industry_demg)[2] = "st_cd"
-write.csv(industry_demg, "industry_and_demographics.csv")
+write.csv(industry_demg, paste0(violations_path,"industry_and_demographics.csv"), row.names = FALSE)
+?read.csv
+
+industry_demg = read.csv(paste0(violations_path, "industry_and_demographics.csv"))
 str(industry_demg$naic_cd_lvl3)
 industry_demg$naic_cd_lvl3 = as.factor(industry_demg$naic_cd_lvl3)
 joined_df = left_join(df, industry_demg)
 dim(joined_df)
 dim(df)
-write.csv(joined_df, "demographic_industry_violations.csv")
+setdiff(industry_demg$st_cd, df$st_cd)
+
+summary(industry_demg)
+summary(joined_df)
+
+write.csv(joined_df, paste0(violations_path, "whd_demographic_industry_violations_naicNumericLevels.csv"))
+
+#caret utility function
+library('caret')
+caret_reg = function(x, y, method, grid, ...) {
+  set.seed(1)
+  control = trainControl(method="repeatedcv", repeats=1,
+                         number=3, verboseIter=TRUE)
+  train(x=x, y=y, method=method, tuneGrid=grid,
+        trControl=control, metric="RMSE",
+        preProcess=c("center", "scale"), ...)
+}
+
+forest_caret = function(df, target) {
+  forest_grid = data.frame(mtry = c(5:8))
+  forest_model = caret_reg(x=scale(df),
+                           y=target,
+                           method = 'ranger',
+                           grid = forest_grid,
+                           importance = 'impurity' )
+  return(forest_model)
+  #forest_model$results$RMSE
+}
 
 
 
+# Find Predictions which are higher than true values.
+# top 5 of each industry (NICS2) grouped by california_county
+#
+name_options = colnames(joined_df)
+chosen_cols = name_options[c(21, 112, 118:121, 137:206)]
 
+min_wage_pred_df = joined_df[chosen_cols]
 
+write.csv(min_wage_pred_df, "min_wage_pred_df.csv", row.names = FALSE)
 
+min_wage_pred_df = read.csv("min_wage_pred_df.csv")
+
+min_wage_pred_df = na.omit(min_wage_pred_df)
+summary(min_wage_pred_df)
+pred_factors = min_wage_pred_df[3:ncol(min_wage_pred_df)]
+min_wage_model = forest_caret(pred_factors, min_wage_pred_df$flsa_mw_bw_atp_amt)
+rmse = min_wage_model$results$RMSE
+str(min_wage_model)
+
+# Make new dataframe: actual min wage violation, predicted min wage violation, difference (predicted-actual), county (group by county)
+# Order dataframe by difference(predicted-actual) (after aggregate by county)
+# Bar plot top 20 or so of these, as two bars per each county (one for actual, one for pred)
+# min_wage_model$results$x
+#
+
+# Future directions
+# We can assume that although we are only detecting a few examples for under-detected categories of violation, we are at least getting a few of the worst, thus we can fill out a set of imputed predicitons with the assumption of a multivariate normal distribution. Shape of distributions of well-detected categories (places, industries) can be used as approximations of shapes of under-detected categories (different places, same industries). Using these assumptions for our starting Bayesian Prior, we update on the info we find, then figure out where there "should" be larger violations.
